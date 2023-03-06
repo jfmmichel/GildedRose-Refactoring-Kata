@@ -9,8 +9,8 @@ public enum ItemCategory {
     SULFURAS("Sulfuras", 0),
     AGED_BRIE("Aged Brie"),
     BACKSTAGE_PASSES("Backstage passes");
-    
-    private final int USUAL_QUALITY_STEP = 1;
+
+    public static final int USUAL_QUALITY_STEP = 1;
 
     private final String name;
     private final int dailyQualityStep;

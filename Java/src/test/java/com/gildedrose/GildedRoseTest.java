@@ -48,6 +48,7 @@ Special categories
         assertEquals(initialSellIn, item.getSellIn());
         assertEquals(0, item.getQuality());
     }
+
     @Test
     void createItemAgedBrie() {
         String name = ItemCategory.AGED_BRIE.getName();
@@ -59,6 +60,7 @@ Special categories
         assertEquals(initialSellIn, item.getSellIn());
         assertEquals(initialQuality, item.getQuality());
     }
+
     @Test
     void createItemBackstagePasses() {
         String name = ItemCategory.BACKSTAGE_PASSES.getName();
@@ -70,6 +72,7 @@ Special categories
         assertEquals(initialSellIn, item.getSellIn());
         assertEquals(initialQuality, item.getQuality());
     }
+
     @Test
     void createItemSulfuras() {
         String name = ItemCategory.SULFURAS.getName();
@@ -83,11 +86,32 @@ Special categories
     }
 
     @Test
-    void foo() {
-        Item[] items = new Item[]{new Item("foo", 0, 0)};
+    void dailyUpdateUsual1() {
+        String name = "foo1";
+        int initialSellIn = -5;
+        int initialQuality = -7;
+        int expectedSellIn = initialSellIn - 1;
+        int expectedQuality = 0;
+        Item[] items = new Item[]{new Item(name, initialSellIn, initialQuality)};
         GildedRose app = new GildedRose(items);
         app.updateQuality();
-        assertEquals("fixme", app.items[0].getName());
+        assertEquals(name, app.items[0].getName()); // name is not impacted by daily update
+        assertEquals(expectedSellIn, app.items[0].getSellIn());
+        assertEquals(expectedQuality, app.items[0].getQuality()); // quality is never negative
     }
 
+    @Test
+    void dailyUpdateUsual2() {
+        String name = "foo2";
+        int initialSellIn = 20;
+        int initialQuality = 40;
+        int expectedSellIn = initialSellIn - 1;
+        int expectedQuality = initialQuality - ItemCategory.USUAL_QUALITY_STEP;
+        Item[] items = new Item[]{new Item(name, initialSellIn, initialQuality)};
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(name, app.items[0].getName()); // name is not impacted by daily update
+        assertEquals(expectedSellIn, app.items[0].getSellIn());
+        assertEquals(expectedQuality, app.items[0].getQuality());
+    }
 }
