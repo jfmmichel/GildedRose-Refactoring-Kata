@@ -44,10 +44,10 @@ At the end of each day our system lowers both values for every item :
     @Test
     void updateOutdated2() {
         String name = CATEGORY_BACKSTAGE_PASSES.getName() + ", Comic";
-        int initialSellIn = 5;
+        int initialSellIn = 5; // 6 steps with extra quality then 0
         int initialQuality = -3; // so it means 0 after creation ...
         GildedRose app = new GildedRose(new Item[]{new Item(name, initialSellIn, initialQuality)});
-        int nbSteps = 6;
+        int nbSteps = 7;
         for (int i = 0; i < nbSteps; i++) {
             app.updateQuality();
         }
@@ -80,11 +80,11 @@ At the end of each day our system lowers both values for every item :
     @Test
     void updateLessThan10Days() {
         String name = CATEGORY_BACKSTAGE_PASSES.getName() + ", Singer";
-        int initialSellIn = 10;
+        int initialSellIn = 11;
         int initialQuality = 10;
         int nbSteps = 5;
         int expectedSellIn = initialSellIn - nbSteps;
-        int expectedQuality = nbSteps * 2; // Quality increases by 2 when there are 10 days or less
+        int expectedQuality = initialQuality + nbSteps * 2; // Quality increases by 2 when there are 10 days or less
         GildedRose app = new GildedRose(new Item[]{new Item(name, initialSellIn, initialQuality)});
         for (int i = 0; i < nbSteps; i++) {
             app.updateQuality();
@@ -102,7 +102,7 @@ At the end of each day our system lowers both values for every item :
         int initialQuality = 10;
         int nbSteps = 20;
         int expectedSellIn = initialSellIn - nbSteps;
-        int expectedQuality = 5 * 2 + 5 * 3 + 10 * CATEGORY_BACKSTAGE_PASSES.getPositiveSellInQualityStep();
+        int expectedQuality = initialQuality + 5 * 2 + 6 * 3 + 9 * CATEGORY_BACKSTAGE_PASSES.getPositiveSellInQualityStep();
         GildedRose app = new GildedRose(new Item[]{new Item(name, initialSellIn, initialQuality)});
         for (int i = 0; i < nbSteps; i++) {
             app.updateQuality();
@@ -113,7 +113,8 @@ At the end of each day our system lowers both values for every item :
         assertTrue(item.getQuality() >= CATEGORY_BACKSTAGE_PASSES.getMinQuality() && item.getQuality() <= CATEGORY_BACKSTAGE_PASSES.getMaxQuality());
         // -------------------------------------
         app.updateQuality();
-        expectedSellIn = -1;
+        app.updateQuality();
+        expectedSellIn = -2;
         expectedQuality = 0;
         assertEquals(expectedSellIn, item.getSellIn());
         assertEquals(expectedQuality, item.getQuality(), "Expected quality daily update for " + item.getName() + "/" + CATEGORY_BACKSTAGE_PASSES.getName() + " should be updated from [" + initialQuality + "] to [" + expectedQuality + "] instead of [" + item.getQuality() + "]");

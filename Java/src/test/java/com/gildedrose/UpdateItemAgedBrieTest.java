@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
-public class UpdateItemAgedBrie {
+public class UpdateItemAgedBrieTest {
 
     /*
 At the end of each day our system lowers both values for every item :

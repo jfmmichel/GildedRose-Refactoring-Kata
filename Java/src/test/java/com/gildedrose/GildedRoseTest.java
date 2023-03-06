@@ -48,25 +48,25 @@ Special categories
         for (int i = 0; i < nbSteps; i++) {
             app.updateQuality();
         }
-        assertEquals(app.items[0].getSellIn(), 5);
-        assertEquals(app.items[1].getSellIn(), 5);
-        assertEquals(app.items[2].getSellIn(), 5);
+        assertEquals(app.items[0].getSellIn(), 10);
+        assertEquals(app.items[1].getSellIn(), 10);
+        assertEquals(app.items[2].getSellIn(), 10);
         assertTrue(app.items[3].getSellIn() > 0);
 
         assertEquals(app.items[0].getQuality(), 45);
-        assertEquals(app.items[1].getQuality(), 50);
+        assertEquals(app.items[1].getQuality(), 46);
         assertEquals(app.items[2].getQuality(), 5);
         assertTrue(app.items[3].getQuality() == 80);
 
         app.updateQuality();
 
-        assertEquals(app.items[0].getSellIn(), 4);
-        assertEquals(app.items[1].getSellIn(), 4);
-        assertEquals(app.items[2].getSellIn(), 4);
+        assertEquals(app.items[0].getSellIn(), 9);
+        assertEquals(app.items[1].getSellIn(), 9);
+        assertEquals(app.items[2].getSellIn(), 9);
         assertTrue(app.items[3].getSellIn() > 0);
 
         assertEquals(app.items[0].getQuality(), 46);
-        assertEquals(app.items[1].getQuality(), 50);
+        assertEquals(app.items[1].getQuality(), 48);
         assertEquals(app.items[2].getQuality(), 4);
         assertTrue(app.items[3].getQuality() == 80);
     }
