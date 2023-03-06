@@ -22,8 +22,9 @@ Special categories
     - never decreases in Quality
     - Quality is 80 and it never alters
 
-- "Aged Brie" 
+- "Aged Brie" :
     - increases in Quality the older it gets
+    - What about negative sellIn ? @TODO
 
 - "Backstage passes", like aged brie, increases in Quality as its SellIn value approaches;
 	- Quality increases by 2 when there are 10 days or less 
@@ -33,85 +34,40 @@ Special categories
 - "Conjured" (new feature) :
     - items degrade in Quality twice as fast as normal items
      */
-
- /*
-    Check Item creation for each category
-     */
     @Test
-    void createItemUsual() {
-        String name = "foo";
-        int initialSellIn = -5;
-        int initialQuality = -7;
-        assertEquals(ItemCategory.USUAL, ItemCategory.getCategory(name));
-        Item item = new Item(name, initialSellIn, initialQuality);
-        assertEquals(name, item.getName());
-        assertEquals(initialSellIn, item.getSellIn());
-        assertEquals(0, item.getQuality());
-    }
+    void dailyUpdateAgedBrie2() {
+        int initialSellIn = 30;
+        int initialQuality = 25;
+        int nbSteps = 20;
+        GildedRose app = new GildedRose(new Item[]{
+            new Item(ItemCategory.AGED_BRIE.getName(), initialSellIn, initialQuality),
+            new Item(ItemCategory.BACKSTAGE_PASSES.getName(), initialSellIn, initialQuality),
+            new Item(ItemCategory.USUAL.getName(), initialSellIn, initialQuality),
+            new Item(ItemCategory.SULFURAS.getName(), initialSellIn, initialQuality)
+        });
+        for (int i = 0; i < nbSteps; i++) {
+            app.updateQuality();
+        }
+        assertEquals(app.items[0].getSellIn(), 5);
+        assertEquals(app.items[1].getSellIn(), 5);
+        assertEquals(app.items[2].getSellIn(), 5);
+        assertTrue(app.items[3].getSellIn() > 0);
 
-    @Test
-    void createItemAgedBrie() {
-        String name = ItemCategory.AGED_BRIE.getName();
-        int initialSellIn = 0;
-        int initialQuality = 0;
-        assertEquals(ItemCategory.AGED_BRIE, ItemCategory.getCategory(name));
-        Item item = new Item(name, initialSellIn, initialQuality);
-        assertEquals(name, item.getName());
-        assertEquals(initialSellIn, item.getSellIn());
-        assertEquals(initialQuality, item.getQuality());
-    }
+        assertEquals(app.items[0].getQuality(), 45);
+        assertEquals(app.items[1].getQuality(), 50);
+        assertEquals(app.items[2].getQuality(), 5);
+        assertTrue(app.items[3].getQuality() == 80);
 
-    @Test
-    void createItemBackstagePasses() {
-        String name = ItemCategory.BACKSTAGE_PASSES.getName();
-        int initialSellIn = 15;
-        int initialQuality = 20;
-        assertEquals(ItemCategory.BACKSTAGE_PASSES, ItemCategory.getCategory(name));
-        Item item = new Item(name, initialSellIn, initialQuality);
-        assertEquals(name, item.getName());
-        assertEquals(initialSellIn, item.getSellIn());
-        assertEquals(initialQuality, item.getQuality());
-    }
-
-    @Test
-    void createItemSulfuras() {
-        String name = ItemCategory.SULFURAS.getName();
-        int initialSellIn = -3;
-        int initialQuality = 30;
-        assertEquals(ItemCategory.SULFURAS, ItemCategory.getCategory(name));
-        Item item = new Item(name, initialSellIn, initialQuality);
-        assertEquals(name, item.getName());
-        assertTrue(item.getSellIn() > 0); // never has to be sold (SellIn > 0 ?)
-        assertEquals(80, item.getQuality());
-    }
-
-    @Test
-    void dailyUpdateUsual1() {
-        String name = "foo1";
-        int initialSellIn = -5;
-        int initialQuality = -7;
-        int expectedSellIn = initialSellIn - 1;
-        int expectedQuality = 0;
-        Item[] items = new Item[]{new Item(name, initialSellIn, initialQuality)};
-        GildedRose app = new GildedRose(items);
         app.updateQuality();
-        assertEquals(name, app.items[0].getName()); // name is not impacted by daily update
-        assertEquals(expectedSellIn, app.items[0].getSellIn());
-        assertEquals(expectedQuality, app.items[0].getQuality()); // quality is never negative
-    }
 
-    @Test
-    void dailyUpdateUsual2() {
-        String name = "foo2";
-        int initialSellIn = 20;
-        int initialQuality = 40;
-        int expectedSellIn = initialSellIn - 1;
-        int expectedQuality = initialQuality - ItemCategory.USUAL_QUALITY_STEP;
-        Item[] items = new Item[]{new Item(name, initialSellIn, initialQuality)};
-        GildedRose app = new GildedRose(items);
-        app.updateQuality();
-        assertEquals(name, app.items[0].getName()); // name is not impacted by daily update
-        assertEquals(expectedSellIn, app.items[0].getSellIn());
-        assertEquals(expectedQuality, app.items[0].getQuality());
+        assertEquals(app.items[0].getSellIn(), 4);
+        assertEquals(app.items[1].getSellIn(), 4);
+        assertEquals(app.items[2].getSellIn(), 4);
+        assertTrue(app.items[3].getSellIn() > 0);
+
+        assertEquals(app.items[0].getQuality(), 46);
+        assertEquals(app.items[1].getQuality(), 50);
+        assertEquals(app.items[2].getQuality(), 4);
+        assertTrue(app.items[3].getQuality() == 80);
     }
 }

@@ -9,18 +9,18 @@ public class Item {
     private final ItemCategory category; // identifies item category
 
     /**
-     * Item to sell.
-     * Values are checked and corrected at creation according to category.
-     * 
+     * Item to sell. Values are checked and corrected at creation according to
+     * category.
+     *
      * @param name item name (category)
      * @param sellIn number of days we have to sell the item
-     * @param quality how valuable the item is 
+     * @param quality how valuable the item is
      */
     public Item(String name, int sellIn, int quality) {
         this.name = name; // should we add some formatting check ?
-        category = ItemCategory.getCategory(name);
+        this.category = ItemCategory.getCategory(name);
         this.setSellIn(sellIn);
-        setQuality(quality);
+        this.setQuality(quality);
     }
 
     @Override
@@ -40,6 +40,10 @@ public class Item {
      */
     public int getSellIn() {
         return sellIn;
+    }
+
+    public ItemCategory getCategory() {
+        return category;
     }
 
     /**
