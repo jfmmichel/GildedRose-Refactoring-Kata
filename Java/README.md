@@ -1,15 +1,12 @@
+
+
+
 # Gilded Rose starting position in Java
 
-## Run the Text Fixture from Command-Line
+## Build application
 
-```
-./gradlew -q text
-```
+./gradlew clean build
 
-### Specify Number of Days
+## Test application
 
-For e.g. 10 days:
-
-```
-./gradlew -q text --args 10
-```
+./mvnw test
