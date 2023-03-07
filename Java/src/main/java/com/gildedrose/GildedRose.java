@@ -1,9 +1,5 @@
 package com.gildedrose;
 
-/*
-New feature : new category of items
-	- "Conjured" items degrade in Quality twice as fast as normal items
- */
 class GildedRose {
 
     Item[] items;
@@ -19,17 +15,12 @@ class GildedRose {
         ItemCategory category = item.getCategory();
         int speed = (item.getSellIn() < 0 ? 2 : 1);
         int qualityDelta = speed * category.getPositiveSellInQualityStep();
-        System.err.println("Item SellIn  :" + item.getSellIn());
-        System.err.println("Speed        :" + speed);
-        System.err.println("quality delta:" + qualityDelta);
 
         switch (category) {
             case SULFURAS:
                 break;
             case AGED_BRIE:
-                System.err.println("Item quality :" + item.getQuality());
                 item.setQuality(item.getQuality() + qualityDelta);
-                System.err.println("Item quality :" + item.getQuality());
                 break;
             case BACKSTAGE_PASSES:
                 if (item.getSellIn() < 0) {
