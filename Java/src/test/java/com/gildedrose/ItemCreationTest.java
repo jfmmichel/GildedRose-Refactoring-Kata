@@ -16,7 +16,6 @@ class ItemCreationTest {
       - never has to be sold (SellIn > 0 ?)
       - Quality is 80 and it never alters
      */
-
     @Test
     void createItemUsualOutdated() {
         ItemCategory category = ItemCategory.USUAL;
@@ -33,7 +32,7 @@ class ItemCreationTest {
         ItemCategory category = ItemCategory.AGED_BRIE;
         Item item = new Item(category.getName() + ", good cheese", 0, 0);
         assertEquals(0, item.getSellIn());
-        assertTrue(item.getQuality() >= category.getMinQuality()&& item.getQuality() <= category.getMaxQuality());
+        assertTrue(item.getQuality() >= category.getMinQuality() && item.getQuality() <= category.getMaxQuality());
     }
 
     @Test
@@ -42,7 +41,7 @@ class ItemCreationTest {
         Item item = new Item(category.getName() + ", good cheese", 15, 20);
         assertEquals(15, item.getSellIn());
         assertEquals(20, item.getQuality());
-        assertTrue(item.getQuality() >= category.getMinQuality()&& item.getQuality() <= category.getMaxQuality());
+        assertTrue(item.getQuality() >= category.getMinQuality() && item.getQuality() <= category.getMaxQuality());
     }
 
     @Test
@@ -51,7 +50,17 @@ class ItemCreationTest {
         Item item = new Item(category.getName() + ", super", -3, 30);
         assertTrue(item.getSellIn() > 0); // never has to be sold (SellIn > 0 ?)
         assertEquals(80, item.getQuality());
-        assertTrue(item.getQuality() >= category.getMinQuality()&& item.getQuality() <= category.getMaxQuality());
+        assertTrue(item.getQuality() >= category.getMinQuality() && item.getQuality() <= category.getMaxQuality());
     }
 
+    @Test
+    void createItemConjured() {
+        ItemCategory category = ItemCategory.CONJURED;
+        String name = category.getName() + ", xyz";
+        Item item = new Item(name, -3, 70);
+        assertEquals(name, item.getName());
+        assertEquals(-3, item.getSellIn());
+        assertTrue(item.getQuality() == category.getMaxQuality());
+        assertTrue(item.getQuality() >= category.getMinQuality() && item.getQuality() <= category.getMaxQuality());
+    }
 }

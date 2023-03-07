@@ -6,6 +6,7 @@ package com.gildedrose;
  */
 public enum ItemCategory {
     USUAL("usual"),
+    CONJURED("Conjured",2),
     SULFURAS("Sulfuras", 0,  80, 80),
     AGED_BRIE("Aged Brie"),
     BACKSTAGE_PASSES("Backstage passes");
@@ -24,6 +25,13 @@ public enum ItemCategory {
         this.positiveSellInQualityStep = positiveSellInQualityStep;
         this.minQuality = minQuality;
         this.maxQuality = maxQuality;
+    }
+
+    private ItemCategory(String name, int positiveSellInQualityStep) {
+        this.name = name;
+        this.positiveSellInQualityStep = positiveSellInQualityStep;
+        this.minQuality = MIN_QUALITY;
+        this.maxQuality = MAX_QUALITY;
     }
 
     private ItemCategory(String name) {

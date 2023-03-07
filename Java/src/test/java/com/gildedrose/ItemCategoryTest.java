@@ -20,6 +20,11 @@ public class ItemCategoryTest {
         assertEquals(ItemCategory.USUAL, ItemCategory.getCategory("AGED"));
         assertEquals(ItemCategory.USUAL, ItemCategory.getCategory("Backstage pass"));
 
+        assertEquals(ItemCategory.CONJURED, ItemCategory.getCategory("Conjured"));
+        assertEquals(ItemCategory.CONJURED, ItemCategory.getCategory("Conjured, item name"));
+        assertEquals(ItemCategory.CONJURED, ItemCategory.getCategory("CONJURED"));
+        assertEquals(ItemCategory.CONJURED, ItemCategory.getCategory("CONJURED ITEM"));
+
         assertEquals(ItemCategory.SULFURAS, ItemCategory.getCategory("Sulfuras"));
         assertEquals(ItemCategory.SULFURAS, ItemCategory.getCategory("Sulfuras, item name"));
         assertEquals(ItemCategory.SULFURAS, ItemCategory.getCategory("SULFURAS"));

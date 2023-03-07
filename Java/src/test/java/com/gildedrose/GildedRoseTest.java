@@ -43,7 +43,8 @@ Special categories
             new Item(ItemCategory.AGED_BRIE.getName(), initialSellIn, initialQuality),
             new Item(ItemCategory.BACKSTAGE_PASSES.getName(), initialSellIn, initialQuality),
             new Item(ItemCategory.USUAL.getName(), initialSellIn, initialQuality),
-            new Item(ItemCategory.SULFURAS.getName(), initialSellIn, initialQuality)
+            new Item(ItemCategory.SULFURAS.getName(), initialSellIn, initialQuality),
+            new Item(ItemCategory.CONJURED.getName(), initialSellIn, initialQuality)
         });
         for (int i = 0; i < nbSteps; i++) {
             app.updateQuality();
@@ -52,11 +53,13 @@ Special categories
         assertEquals(app.items[1].getSellIn(), 10);
         assertEquals(app.items[2].getSellIn(), 10);
         assertTrue(app.items[3].getSellIn() > 0);
+        assertEquals(app.items[4].getSellIn(), 10);
 
         assertEquals(app.items[0].getQuality(), 45);
         assertEquals(app.items[1].getQuality(), 46);
         assertEquals(app.items[2].getQuality(), 5);
         assertTrue(app.items[3].getQuality() == 80);
+        assertEquals(app.items[4].getQuality(), 0);
 
         app.updateQuality();
 
@@ -64,10 +67,12 @@ Special categories
         assertEquals(app.items[1].getSellIn(), 9);
         assertEquals(app.items[2].getSellIn(), 9);
         assertTrue(app.items[3].getSellIn() > 0);
+        assertEquals(app.items[4].getSellIn(), 9);
 
         assertEquals(app.items[0].getQuality(), 46);
         assertEquals(app.items[1].getQuality(), 48);
         assertEquals(app.items[2].getQuality(), 4);
         assertTrue(app.items[3].getQuality() == 80);
+        assertEquals(app.items[4].getQuality(), 0);
     }
 }
